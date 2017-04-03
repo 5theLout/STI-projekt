@@ -23,11 +23,6 @@
                         <MenuBar>
                             <menus>
                                 <Menu mnemonicParsing="false" text="Plik">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#openFileMenuItemClicked" text="Otwórz obraz jpeg" />
-                                        <MenuItem mnemonicParsing="false" onAction="#saveAsImageFileMenuItemClicked" text="Zapisz jako obraz jpeg" />
-                                        <MenuItem mnemonicParsing="false" onAction="#closeFileMenuItemClicked" text="Zamknij" />
-                                    </items>
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Edycja">
                                     <items>

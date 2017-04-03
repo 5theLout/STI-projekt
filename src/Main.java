@@ -15,7 +15,7 @@ public class Main extends Application {
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Distributed Paint");
+        primaryStage.setTitle("Smieciarka");
         primaryStage.show();
         mainWindowController.setStageAndItsMeasures(primaryStage);
         root.prefWidthProperty().bind(scene.widthProperty());

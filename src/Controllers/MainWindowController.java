@@ -93,4 +93,13 @@ public class MainWindowController implements Initializable {
         environment.draw(gc);
         System.out.println(prologEngineResolver.getEngine().getTheory().toJSON());
     }
+
+    public void onCanvasMouseDragged(MouseEvent mouseEvent) {
+    }
+
+    public void onCanvasMousePressed(MouseEvent mouseEvent) {
+    }
+
+    public void onCanvasMouseReleased(MouseEvent mouseEvent) {
+    }
 }

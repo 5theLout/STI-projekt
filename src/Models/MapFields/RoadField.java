@@ -8,9 +8,6 @@ import javafx.scene.image.Image;
 
 public class RoadField implements Drawable {
 
-    //int xPos;
-    //int yPos;
-
     Struct positionFact;
 
     public RoadField(int xPos, int yPos){

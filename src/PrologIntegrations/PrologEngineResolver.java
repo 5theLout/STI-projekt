@@ -45,7 +45,6 @@ public class PrologEngineResolver {
             }
             else if (!engine.hasOpenAlternatives()) {
                 System.out.println(info);
-                //System.out.println(info.getTerm("house").toString());
                 System.out.println(info.getSolution().toJSON());
                 System.out.println(info.getSolution().getTerm());
                 solutions.add(info.getSolution().getTerm().toString());
@@ -83,46 +82,4 @@ public class PrologEngineResolver {
         //return false;
     }
 
-    //public static void testingMethod(List<String> args) throws Exception {
-//
-    //    Prolog engine = new Prolog();
-    //    engine.setTheory(new Theory(new FileInputStream(args.get(0))));
-    //    BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-    //    while (true) { // interpreter main loop
-    //        String goal;
-    //        do {
-    //            System.out.print("?- ");
-    //            goal = stdin.readLine();
-    //        } while (goal.equals(""));
-    //        try {
-    //            SolveInfo info = engine.solve(goal);
-    //            if (engine.isHalted()) break;
-    //            else if (!info.isSuccess()) System.out.println("no.");
-    //            else if (!engine.hasOpenAlternatives()) {
-    //                System.out.println(info);
-    //            } else { // main case
-    //                System.out.println(info + " ?");
-    //                String answer = stdin.readLine();
-    //                while (answer.equals(";") && engine.hasOpenAlternatives()) {
-    //                    info = engine.solveNext();
-    //                    if (!info.isSuccess()) {
-    //                        System.out.println("no.");
-    //                        break;
-    //                    } else {
-    //                        System.out.println(info + " ?");
-    //                        answer = stdin.readLine();
-    //                    } // endif
-    //                }// endwhile
-    //                if (answer.equals(";") && !engine.hasOpenAlternatives())
-    //                    System.out.println("no.");
-    //            } // end main case
-    //        } catch (MalformedGoalException ex) {
-    //            System.err.println("syntax error.");
-    //        } // end try
-    //    } // end main loop
-    //    if (args.size() > 1) {
-    //        Theory curTh = engine.getTheory(); // save current theory to file
-    //        new FileOutputStream(args.get(1)).write(curTh.toString().getBytes());
-    //    }
-    //}
 }

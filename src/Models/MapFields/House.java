@@ -16,11 +16,7 @@ import java.util.List;
 
 public class House implements Drawable {
 
-    //int xPos;
-    //int yPos;
-
     Struct positionFact;
-    //Struct hasRubishFact = new Struct("has_rubbish", new Int(0), positionFact);
 
     List<Garbage> garbages;
 

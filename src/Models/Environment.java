@@ -1,6 +1,5 @@
 package Models;
 
-import Models.Garbages.Garbage;
 import Models.Prototypes.Drawable;
 import javafx.scene.canvas.GraphicsContext;
 

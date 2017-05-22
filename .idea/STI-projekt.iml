@@ -8,7 +8,7 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="2p" level="application" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="gson-2.6.2" level="application" />
+    <orderEntry type="library" name="2p" level="application" />
+    <orderEntry type="library" name="gson-2.6.2" level="application" />
   </component>
 </module>

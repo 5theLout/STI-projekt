@@ -1,7 +1,10 @@
 package PrologIntegrations;
 
 import Models.Environment;
-import alice.tuprolog.*;
+import alice.tuprolog.MalformedGoalException;
+import alice.tuprolog.Prolog;
+import alice.tuprolog.SolveInfo;
+import alice.tuprolog.Theory;
 
 import java.io.*;
 import java.util.ArrayList;

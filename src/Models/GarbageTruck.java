@@ -25,17 +25,7 @@ public class GarbageTruck implements Drawable {
 
     public void draw(GraphicsContext gc) {
         //gc.drawImage(new Image((getClass().getResourceAsStream("/GarbageTruck.png"))), ((Int)positionFact.getArg(0)).intValue(), ((Int)positionFact.getArg(1)).intValue(), 60, 20);
-        drawRotatedImage(gc, new Image((getClass().getResourceAsStream("/GarbageTruck.png"))), 10, ((Int)(positionFact.getArg(0))).intValue(), ((Int)positionFact.getArg(1)).intValue());
-    }
-
-    @Override
-    public int getXPos() {
-        return 0;
-    }
-
-    @Override
-    public int getYPos() {
-        return 0;
+        drawRotatedImage(gc, new Image((getClass().getResourceAsStream("/GarbageTruck.png"))), 10, ((Int)(positionFact.getArg(0))).intValue() - 25, ((Int)positionFact.getArg(1)).intValue() - 25);
     }
 
     private void rotate(GraphicsContext gc, double angle, double px, double py) {

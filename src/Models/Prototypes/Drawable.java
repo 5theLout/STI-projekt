@@ -6,7 +6,4 @@ public interface Drawable {
 
     void draw(GraphicsContext gc);
 
-    int getXPos();
-
-    int getYPos();
 }

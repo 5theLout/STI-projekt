@@ -47,30 +47,32 @@ public class PrologEngineResolver {
                 System.out.println("no.");
             }
             else if (!engine.hasOpenAlternatives()) {
-                System.out.println(info);
+                //System.out.println(info);
                 System.out.println(info.getSolution().toJSON());
-                System.out.println(info.getSolution().getTerm());
+                //System.out.println(info.getSolution().getTerm());
                 solutions.add(info.getSolution().getTerm().toString());
                 //return true;
             } else { // main case
-                System.out.println(info + " ?");
+                //System.out.println(info + " ?");
                 String answer = query;
-                while (answer.equals(";") && engine.hasOpenAlternatives()) {
+                while(engine.hasOpenAlternatives()) {
+                //while (answer.equals(";") && engine.hasOpenAlternatives()) {
                     info = engine.solveNext();
                     System.out.println(info.getSolution().toJSON());
-                    System.out.println(info.getSolution().getTerm());
+                    //System.out.println(info.getSolution().getTerm());
+                    solutions.add(info.getSolution().getTerm().toString());
                     if (!info.isSuccess()) {
                         System.out.println("no.");
                         //return false;
                         break;
                     } else {
-                        System.out.println(info + " ?");
+                        //System.out.println(info + " ?");
                         answer = query;
                     } // endif
                 }// endwhile
                 if (answer.equals(";") && !engine.hasOpenAlternatives()) {
                     System.out.println(info.getSolution().toJSON());
-                    System.out.println(info.getSolution().getTerm());
+                    //System.out.println(info.getSolution().getTerm());
                     solutions.add(info.getSolution().getTerm().toString());
                     System.out.println("no.");
                     //return false;

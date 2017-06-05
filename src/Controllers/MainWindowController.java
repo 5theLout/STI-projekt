@@ -137,7 +137,7 @@ public class MainWindowController implements Initializable {
             //System.out.println("(" + allNodes.get(6).getPosition().getXPos() + "," + allNodes.get(6).getPosition().getYPos() + ")");
             //------------------------------------------------------------------------------------------------------------------------
 
-            List<Node> result = aStar.solvePath(environment, prologEngineResolver);
+            List<Node> result = aStar.solvePath(prologEngineResolver);
 
             //------------------------------------------------------------------------------------------------------------------------
             for(int i = 0; i<result.size(); i++) {

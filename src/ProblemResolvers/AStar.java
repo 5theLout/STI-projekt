@@ -112,7 +112,7 @@ public class AStar {
         }
     }
 
-    public List<Node> solvePath(Environment environment, PrologEngineResolver prologEngineResolver) throws Exception {
+    public List<Node> solvePath(PrologEngineResolver prologEngineResolver) throws Exception {
         List<Node> closedSet = new ArrayList<>();
 
         List<Node> openSet = new ArrayList<>();
@@ -170,7 +170,7 @@ public class AStar {
                     + neighbourNode.getPosition().getYPos()
                     + "),"
                     + i
-                    + ").")) return (double)i;
+                    + ").")) return (double)i*50;
         }
 
         return (double)Integer.MAX_VALUE;
@@ -179,7 +179,7 @@ public class AStar {
     private List<Node> reconstructPath(Map<Node, Node> cameFrom, Node current) {
         List<Node> totalPath = new ArrayList<>();
 
-        totalPath.add(goalNode);
+        totalPath.add(current);
 
         while(cameFrom.containsKey(current)) {
             current = cameFrom.get(current);
@@ -190,8 +190,8 @@ public class AStar {
     }
 
     private double heuristicCostEstimate(Node x, Node y) {
-        return (Math.sqrt(Math.pow(x.getPosition().getXPos() - x.getPosition().getYPos(), 2) +
-                    Math.pow(y.getPosition().getXPos() - y.getPosition().getYPos(), 2)));
+        return (Math.sqrt(Math.pow(x.getPosition().getXPos() - y.getPosition().getXPos(), 2) +
+                    Math.pow(x.getPosition().getYPos() - y.getPosition().getYPos(), 2)));
     }
 
 }

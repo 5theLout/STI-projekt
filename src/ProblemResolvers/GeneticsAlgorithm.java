@@ -56,7 +56,7 @@ public class GeneticsAlgorithm {
 
             aStar.prepareNodesForJob(environment);
 
-            List<Node> result = aStar.solvePath(environment, prologEngineResolver);
+            List<Node> result = aStar.solvePath(prologEngineResolver);
 
             //------------------------------------------------------------------------------------------------------------------------
             for(int i = 0; i<result.size(); i++) {

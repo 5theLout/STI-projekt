@@ -29,4 +29,9 @@ public class Position {
     public void setyPos(int yPos) {
         this.yPos = yPos;
     }
+
+    @Override
+    public String toString() {
+        return "(" + xPos + "," + yPos + ")";
+    }
 }

@@ -30,4 +30,8 @@ public class RoadField implements Drawable {
     public void setIntersection(boolean intersection) {
         isIntersection = intersection;
     }
+
+    public Position getCenterPosition() {
+        return this.centerPosition;
+    }
 }

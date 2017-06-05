@@ -14,13 +14,12 @@ public class Node {
 
     public List<Node> neighbourNodes = new ArrayList<>();
 
-    public int g_score;
+    public Node() {
 
-    public double f_score;
+    }
 
     public Node(Position position) {
         this.position = position;
-       // f_score = Math.sqrt(Math.pow(position.getXPos(),2) + Math.pow(position.getYPos(),2));
     }
 
     public Position getPosition() {
@@ -30,4 +29,18 @@ public class Node {
     public void setPosition(Position position) {
         this.position = position;
     }
+
+    public void addNeighbourNode(Node node) {
+        neighbourNodes.add(node);
+    }
+
+    public List<Node> getNeighbourNodes() {
+        return neighbourNodes;
+    }
+
+    public void setNeighbourNodes(List<Node> neighbourNodes) {
+        this.neighbourNodes = neighbourNodes;
+    }
+
+
 }

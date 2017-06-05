@@ -12,33 +12,33 @@ import java.util.List;
  */
 public class Road implements Drawable{
 
-    List<RoadField> fields = new ArrayList<>();
+    List<RoadField> roadFields = new ArrayList<>();
 
     public Road() {}
 
-    public Road(List<RoadField> fields) {
-        this.fields = fields;
+    public Road(List<RoadField> roadFields) {
+        this.roadFields = roadFields;
     }
 
-    public List<RoadField> getFields() {
-        return fields;
+    public List<RoadField> getRoadFields() {
+        return roadFields;
     }
 
-    public void setFields(List<RoadField> fields) {
-        this.fields = fields;
+    public void setRoadFields(List<RoadField> roadFields) {
+        this.roadFields = roadFields;
     }
 
     public void addField(RoadField roadField) {
-        fields.add(roadField);
+        roadFields.add(roadField);
     }
 
     public int getRoadLength() {
-        return fields.size();
+        return roadFields.size();
     }
 
     @Override
     public void draw(GraphicsContext gc) {
-        for(RoadField roadField : fields) {
+        for(RoadField roadField : roadFields) {
             roadField.draw(gc);
         }
     }

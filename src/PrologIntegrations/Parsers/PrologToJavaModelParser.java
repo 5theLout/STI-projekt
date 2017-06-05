@@ -3,10 +3,7 @@ package PrologIntegrations.Parsers;
 import Models.*;
 import Models.Garbages.Bottle;
 import Models.Garbages.Garbage;
-import Models.MapFields.GrassField;
-import Models.MapFields.House;
-import Models.MapFields.GarbageColletionField;
-import Models.MapFields.RoadField;
+import Models.MapFields.*;
 import Models.Prototypes.Drawable;
 
 public class PrologToJavaModelParser {
@@ -29,7 +26,7 @@ public class PrologToJavaModelParser {
         if(textToParse.contains("house")) return new House(Integer.parseInt(entityPositionParams[0]), Integer.parseInt(entityPositionParams[1]));
         else if(textToParse.contains("housegcpoint")) return new GarbageColletionField(Integer.parseInt(entityPositionParams[0]), Integer.parseInt(entityPositionParams[1]));
         else if(textToParse.contains("garbagetruck")) return new GarbageTruck(Integer.parseInt(entityPositionParams[0]), Integer.parseInt(entityPositionParams[1]));
-        else return new GrassField(Integer.parseInt(entityPositionParams[0]), Integer.parseInt(entityPositionParams[1]));
+        else return new Grass(Integer.parseInt(entityPositionParams[0]), Integer.parseInt(entityPositionParams[1]));
     }
 
     public House parseHouseObject(String textToParse) {
@@ -46,11 +43,11 @@ public class PrologToJavaModelParser {
         return new GarbageColletionField(Integer.parseInt(houseCGPointPositionParams[0]), Integer.parseInt(houseCGPointPositionParams[1]));
     }
 
-    public GrassField parseGrassFieldObject(String textToParse) {
+    public Grass parseGrassFieldObject(String textToParse) {
 
         String[] housePositionParams = getTwoArgumentalObjectPosition(textToParse);
 
-        return new GrassField(Integer.parseInt(housePositionParams[0]), Integer.parseInt(housePositionParams[1]));
+        return new Grass(Integer.parseInt(housePositionParams[0]), Integer.parseInt(housePositionParams[1]));
     }
 
     public GarbageTruck parseGarbageTruckObject(String textToParse) {
@@ -109,6 +106,17 @@ public class PrologToJavaModelParser {
         }
 
         return road;
+
+    }
+
+    public Intersection parseIntersectionObject(String textToParse) {
+        textToParse = textToParse.substring(textToParse.indexOf("(") + 1);
+        textToParse = textToParse.substring(0, textToParse.indexOf(")"));
+
+        String[] intersectionPositionParams = textToParse.split(",");
+
+        return new Intersection(Integer.parseInt(intersectionPositionParams[0]), Integer.parseInt(intersectionPositionParams[1]));
+
 
     }
 }

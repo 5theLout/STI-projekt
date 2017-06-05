@@ -31,19 +31,15 @@ public class PrologEngineResolver {
         engine.setTheory(basicTheory);
     }
 
-    public List<String> resolvePrologQuery(String query) throws Exception {
+    public List<String> solvePrologQuery(String query) throws Exception {
 
         List<String> solutions = new ArrayList<>();
 
-        String goal;
-        do {
-            goal = query;
-        } while (goal.equals(""));
+        String goal = query;
         try {
             SolveInfo info = engine.solve(goal);
 
-            if (engine.isHalted());
-            else if (!info.isSuccess()) {
+            if (!info.isSuccess()) {
                 System.out.println("no.");
             }
             else if (!engine.hasOpenAlternatives()) {
@@ -51,31 +47,24 @@ public class PrologEngineResolver {
                 System.out.println(info.getSolution().toJSON());
                 //System.out.println(info.getSolution().getTerm());
                 solutions.add(info.getSolution().getTerm().toString());
-                //return true;
             } else { // main case
-                //System.out.println(info + " ?");
                 String answer = query;
+                solutions.add(info.getSolution().getTerm().toString());
                 while(engine.hasOpenAlternatives()) {
-                //while (answer.equals(";") && engine.hasOpenAlternatives()) {
                     info = engine.solveNext();
                     System.out.println(info.getSolution().toJSON());
-                    //System.out.println(info.getSolution().getTerm());
                     solutions.add(info.getSolution().getTerm().toString());
                     if (!info.isSuccess()) {
                         System.out.println("no.");
-                        //return false;
                         break;
                     } else {
-                        //System.out.println(info + " ?");
                         answer = query;
-                    } // endif
-                }// endwhile
+                    }
+                }
                 if (answer.equals(";") && !engine.hasOpenAlternatives()) {
                     System.out.println(info.getSolution().toJSON());
-                    //System.out.println(info.getSolution().getTerm());
                     solutions.add(info.getSolution().getTerm().toString());
                     System.out.println("no.");
-                    //return false;
                 }
 
             } // end main case
@@ -85,6 +74,18 @@ public class PrologEngineResolver {
         } // end try
         return solutions;
         //return false;
+    }
+
+    public boolean solveSimpleQuery(String query) {
+        try {
+            SolveInfo solveInfo = engine.solve(query);
+            if(solveInfo.isSuccess()) return true;
+            else return false;
+        } catch (MalformedGoalException ex) {
+            System.err.println("syntax error.");
+            return false;
+            //return false;
+        } // end try
     }
 
 }

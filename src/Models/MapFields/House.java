@@ -3,7 +3,6 @@ package Models.MapFields;
 import Models.Garbages.Garbage;
 import Models.Position;
 import Models.Prototypes.Drawable;
-import alice.tuprolog.Int;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -24,8 +23,8 @@ public class House implements Drawable {
     }
 
     public void draw(GraphicsContext gc) {
-        gc.drawImage(new Image((getClass().getResourceAsStream("/grass01.png"))), centerPosition.getXPos() - 25, centerPosition.getYPos() - 25, 50, 50);
-        gc.drawImage(new Image((getClass().getResourceAsStream("/HouseSimple.png"))), centerPosition.getXPos() + 5 - 20, centerPosition.getYPos() + 5 - 20, 40, 40);
+        gc.drawImage(new Image((getClass().getResourceAsStream("/Grass.png"))), centerPosition.getXPos() - 25, centerPosition.getYPos() - 25, 50, 50);
+        gc.drawImage(new Image((getClass().getResourceAsStream("/House.png"))), centerPosition.getXPos() + 5 - 20, centerPosition.getYPos() + 5 - 20, 40, 40);
         for(Garbage garbage : garbages) {
             gc.drawImage(garbage.getImage(), centerPosition.getXPos() + 5, centerPosition.getYPos() + 5, 15, 15);
         }

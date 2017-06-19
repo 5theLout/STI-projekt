@@ -10,12 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
@@ -25,6 +23,7 @@ public class MainWindowController implements Initializable {
     @FXML
     public Canvas drawingArea;
     public TextField maxPopulationSizeTextField;
+    public TextField mutationRateTextField;
 
     private Environment environment;
 
@@ -75,6 +74,9 @@ public class MainWindowController implements Initializable {
                     if (prologFileKnowledgeBase.addAll(prologEngineResolver.solvePrologQuery("house(" + x + "," + y + ")."))) {
                         environment.addMapEntity(new House(x,y));
                     } else environment.addMapEntity(new Grass(x,y));
+                    if(prologFileKnowledgeBase.addAll(prologEngineResolver.solvePrologQuery("junkyard(" + x + "," + y + ")."))) {
+                        environment.addMapEntity(new House(x,y, new javafx.scene.image.Image((getClass().getResourceAsStream("/garbagedump.png")))));
+                    }
                     if(prologFileKnowledgeBase.addAll(prologEngineResolver.solvePrologQuery("housegcpoint(" + x + "," + y + ")."))) {
                         environment.addHouseGCPointEntity(new GarbageColletionField(x,y));
                     }
@@ -236,6 +238,8 @@ public class MainWindowController implements Initializable {
     }
 
     public void goGarbageTruck(MouseEvent mouseEvent) throws Exception {
+        Algorithm.mutationRate = Double.parseDouble(mutationRateTextField.getText());
+
         Node startNode = nodeList.get(0);
         nodeList.remove(0);
         FitnessCalc.setEnvironment(environment, prologEngineResolver);

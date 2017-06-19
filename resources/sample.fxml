@@ -42,7 +42,9 @@
             <HBox prefHeight="83.0" prefWidth="813.0">
               <children>
                 <Label text="Maksymalna wielkość populacji: " />
-                <TextField fx:id="maxPopulationSizeTextField" prefHeight="25.0" prefWidth="108.0" text="50"/>
+                <TextField fx:id="maxPopulationSizeTextField" prefHeight="25.0" prefWidth="108.0" text="25"/>
+                <Label text="Współczynnik mutacji: " />
+                <TextField fx:id="mutationRateTextField" prefHeight="25.0" prefWidth="58.0" text="0.5"/>
                 <Button mnemonicParsing="false" onMouseClicked="#goGarbageTruck" text="Go" />
               </children>
             </HBox>

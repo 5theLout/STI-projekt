@@ -8,7 +8,7 @@ public class Algorithm {
 
     /* GA parameters */
     private static final double uniformRate = 0.5;
-    private static final double mutationRate = 0.015;
+    public static double mutationRate = 0.5;
     private static final int tournamentSize = 6;
     private static final boolean elitism = true;
 
@@ -41,9 +41,10 @@ public class Algorithm {
         }
 
         // Mutate population
-        //for (int i = elitismOffset; i < newPopulation.size(); i++) {
-        //    mutate(newPopulation.getIndividual(i));
-        //}
+        for (int i = elitismOffset; i < newPopulation.size(); i++) {
+            mutate(newPopulation.getIndividual(i), availableGenesList);
+            newPopulation.getIndividual(i).repairIndividual(availableGenesList);
+        }
 
         return newPopulation;
     }
@@ -65,17 +66,18 @@ public class Algorithm {
     }
 
     //// Mutate an individual
-    //private static void mutate(Individual indiv) {
-    //    // Loop through genes
-    //    for (int i = 0; i < indiv.getGoalNodes().size(); i++) {
-    //        if (Math.random() <= mutationRate) {
-    //            // Create random gene
-    //            byte gene = (byte) Math.round(Math.random()*10);
-    //            indiv.removeGoalNode
-    //            indiv.setGene(i, gene);
-    //        }
-    //    }
-    //}
+    private static void mutate(Individual indiv, List<Node> availableGenesList) {
+        // Loop through genes
+        for (int i = 0; i < indiv.getGoalNodes().size(); i++) {
+            if (Math.random() <= mutationRate) {
+                // Create random gene
+                long indexToMutate =  Math.round(Math.random()*(indiv.getGoalNodes().size() - 1));
+                long indexFromAvailableGenesList = Math.round(Math.random()*(availableGenesList.size() - 1));
+                indiv.getGoalNodes().add((int) indexToMutate, availableGenesList.get((int)indexFromAvailableGenesList));
+                indiv.getGoalNodes().remove((int) indexToMutate + 1);
+            }
+        }
+    }
 
     // Select individuals for crossover
     private static Individual tournamentSelection(Population pop) throws Exception {

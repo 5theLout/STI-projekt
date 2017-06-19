@@ -22,9 +22,24 @@ public class House implements Drawable {
 
     }
 
+    public House(int xPos, int yPos, Image img) {
+        garbages = new ArrayList<>();
+
+        centerPosition = new Position(xPos, yPos);
+
+        this.image = img;
+    }
+
+    Image image;
+
     public void draw(GraphicsContext gc) {
-        gc.drawImage(new Image((getClass().getResourceAsStream("/Grass.png"))), centerPosition.getXPos() - 25, centerPosition.getYPos() - 25, 50, 50);
-        gc.drawImage(new Image((getClass().getResourceAsStream("/House.png"))), centerPosition.getXPos() + 5 - 20, centerPosition.getYPos() + 5 - 20, 40, 40);
+        if(image != null) {
+            gc.drawImage(new Image((getClass().getResourceAsStream("/Grass.png"))), centerPosition.getXPos() - 25, centerPosition.getYPos() - 25, 50, 50);
+            gc.drawImage(image, centerPosition.getXPos() + 5 - 20, centerPosition.getYPos() + 5 - 20, 40, 40);
+        } else {
+            gc.drawImage(new Image((getClass().getResourceAsStream("/Grass.png"))), centerPosition.getXPos() - 25, centerPosition.getYPos() - 25, 50, 50);
+            gc.drawImage(new Image((getClass().getResourceAsStream("/House.png"))), centerPosition.getXPos() + 5 - 20, centerPosition.getYPos() + 5 - 20, 40, 40);
+        }
         for(Garbage garbage : garbages) {
             gc.drawImage(garbage.getImage(), centerPosition.getXPos() + 5, centerPosition.getYPos() + 5, 15, 15);
         }

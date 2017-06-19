@@ -16,7 +16,7 @@ house(475,275).
 housegcpoint(475,325).
 house(725,275).
 housegcpoint(725,325).
-house(575,325).
+junkyard(575,325).
 housegcpoint(575,275).
 house(225,375).
 housegcpoint(225,325).

@@ -90,7 +90,7 @@ public class PrologToJavaModelParser {
 
 
         while(entity.length() > 0) {
-            System.out.println(entity);
+            //System.out.println(entity);
             String roadFieldPosition = entity.substring(entity.indexOf("(") + 1);
             roadFieldPosition = roadFieldPosition.substring(0, roadFieldPosition.indexOf(")"));
 

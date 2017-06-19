@@ -2,8 +2,7 @@ package Controllers;
 
 import Models.*;
 import Models.MapFields.*;
-import ProblemResolvers.AStar;
-import ProblemResolvers.Node;
+import ProblemResolvers.*;
 import PrologIntegrations.Parsers.PrologToJavaModelParser;
 import PrologIntegrations.PrologEngineResolver;
 import javafx.fxml.FXML;
@@ -11,16 +10,21 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 
 public class MainWindowController implements Initializable {
 
     @FXML
     public Canvas drawingArea;
+    public TextField maxPopulationSizeTextField;
 
     private Environment environment;
 
@@ -32,9 +36,11 @@ public class MainWindowController implements Initializable {
 
     private GraphicsContext gc;
 
-    private List<Node> nodeList = new ArrayList<>();
+    private List<Node> nodeList;
 
     Timer timer = new Timer();
+
+    //GeneticsAlgorithm geneticsAlgorithm;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,6 +48,8 @@ public class MainWindowController implements Initializable {
         gc = drawingArea.getGraphicsContext2D();
         theoryFileName = "resources/mapa.pl";
         environment = new Environment();
+
+        nodeList = new ArrayList<>();
 
         prepareEnvironment();
 
@@ -112,18 +120,22 @@ public class MainWindowController implements Initializable {
 
             prologEngineResolver.solvePrologQuery("hasgarbages(X,Y).");
 
-            //doGarbageTruckJob(new Node(environment.getGarbageTruck().getCenterPosition()), new Node(new Position(675, 475)));
-
             System.out.println(prologEngineResolver.solveSimpleQuery("neighbour((25,75),(25,175))."));
+
+            nodeList.add(new Node(environment.getGarbageTruck().getCenterPosition()));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void doGarbageTruckJob(Node startNode, List<Node> goalNodes) throws Exception {
+    private void doGarbageTruckJob(List<Node> goalNodes) throws Exception {
+
+        //ZROBIĆ LISTĘ WSZYSTKICH TRAS PROWADZĄCYCH Z KAŻDEGO GOALNODE DO WSZYSTKICH POZOSTAŁYCH
 
         List<Node> allJobResult = new ArrayList<>();
+        Node startNode = goalNodes.get(0);
+        goalNodes.remove(0);
 
         for(Node goalNode : goalNodes) {
             AStar aStar = new AStar(goalNode,
@@ -154,7 +166,7 @@ public class MainWindowController implements Initializable {
         environment.getGarbageTruck().beginJob(roadsToGoForGarbageTruck, environment);
         environment.getGarbageTruck().draw(gc);
 
-        timer.schedule(task, 4000l,500l);
+        timer.schedule(task, 1000l,500l);
     }
 
     private List<Road> loadRoadsBasedOnResultController(List<Node> result) {
@@ -224,6 +236,64 @@ public class MainWindowController implements Initializable {
     }
 
     public void goGarbageTruck(MouseEvent mouseEvent) throws Exception {
-        doGarbageTruckJob(new Node(environment.getGarbageTruck().getCenterPosition()), nodeList);
+        Node startNode = nodeList.get(0);
+        nodeList.remove(0);
+        FitnessCalc.setEnvironment(environment, prologEngineResolver);
+
+
+        List<Node> availableGenesList = new ArrayList<>();
+        for(Node node : nodeList) {
+            availableGenesList.add(node);
+        }
+        //Individual fromNodeList = new Individual(availableGenesList);
+
+        List<List<Node>> permutationsNodeList = NodesPermutationGenerator.generatePerm(nodeList);
+        List<List<Node>> finalPermutationsForOperation = new ArrayList<>();
+        for(int i = 0 ; i < permutationsNodeList.size() ; i+=permutationsNodeList.size()/Integer.parseInt(maxPopulationSizeTextField.getText())+1) {
+            if(i > Integer.parseInt(maxPopulationSizeTextField.getText())) break;
+            finalPermutationsForOperation.add(permutationsNodeList.get(i));
+            //permutationsNodeList.remove(i);
+        }
+
+        Individual[] individuals = new Individual[finalPermutationsForOperation.size()];
+        List<Individual> individualList = new ArrayList<>();
+        for(List<Node> permutation : finalPermutationsForOperation) {
+            individualList.add(new Individual(permutation, startNode));
+        }
+
+        //List<Individual> individualList = NodesPermutationGenerator.generatePerm(fromNodeList);
+
+        for(int i = 0; i < individuals.length; i++) {
+            individuals[i] = individualList.get(i);
+        }
+
+        Population population = new Population(finalPermutationsForOperation.size(), individuals);
+        int generationCount = 0;
+        for(int i = 0; i < 10; i++) {
+            generationCount++;
+            System.out.println("Generation: " + generationCount + " Fittest: " + population.getFittest().getFitness());
+            population = Algorithm.evolvePopulation(population, availableGenesList);
+        }
+        //while (population.getFittest().getFitness() < FitnessCalc.getMaxFitness()) {
+        //    generationCount++;
+        //    System.out.println("Generation: " + generationCount + " Fittest: " + population.getFittest().getFitness());
+        //    population = Algorithm.evolvePopulation(population);
+        //}
+        System.out.println("Solution found!");
+        System.out.println("Generation: " + generationCount);
+        System.out.println("Genes:");
+        Individual fittest = population.getFittest();
+        for(Node node : fittest.getGoalNodes()) {
+            System.out.println("(" + node.getPosition().getXPos() + ", " + node.getPosition().getYPos() + ")");
+            System.out.println(fittest.getGoalNodes().size());
+        }
+        //System.out.println(population.getFittest());
+        //geneticsAlgorithm = new GeneticsAlgorithm(availableGenesList, environment, prologEngineResolver);
+        //geneticsAlgorithm.printPopulationSpecimens();
+        List<Node> garbageTruckJobNodesList = new ArrayList<>();
+        garbageTruckJobNodesList.add(startNode);
+        garbageTruckJobNodesList.addAll(population.getFittest().getGoalNodes());
+        doGarbageTruckJob(garbageTruckJobNodesList);
+
     }
 }

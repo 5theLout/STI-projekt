@@ -10,5 +10,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="2p" level="application" />
     <orderEntry type="library" name="gson-2.6.2" level="application" />
+    <orderEntry type="library" name="com.xiantrimble.combinatorics:combinatorics:0.2.0" level="project" />
   </component>
 </module>

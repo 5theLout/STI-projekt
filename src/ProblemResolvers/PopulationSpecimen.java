@@ -13,8 +13,9 @@ public class PopulationSpecimen {
 
     Integer crossoverRate;
 
-    public PopulationSpecimen(List<Node> nodes) {
+    public PopulationSpecimen(List<Node> nodes, int phenotype) {
         this.nodes = nodes;
+        this.phenotype = phenotype;
     }
 
     public List<Node> getNodes() {

@@ -14,9 +14,7 @@ public class Node {
 
     public List<Node> neighbourNodes = new ArrayList<>();
 
-    public Node() {
-
-    }
+    public Node() {}
 
     public Node(Position position) {
         this.position = position;
@@ -41,6 +39,5 @@ public class Node {
     public void setNeighbourNodes(List<Node> neighbourNodes) {
         this.neighbourNodes = neighbourNodes;
     }
-
 
 }

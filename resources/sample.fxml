@@ -41,8 +41,8 @@
             </MenuBar>
             <HBox prefHeight="83.0" prefWidth="813.0">
               <children>
-                <TextField fx:id="lineWidthTextField" prefHeight="25.0" prefWidth="108.0" text="0" />
-                <TextField prefHeight="25.0" prefWidth="120.0" text="0" />
+                <Label text="Maksymalna wielkość populacji: " />
+                <TextField fx:id="maxPopulationSizeTextField" prefHeight="25.0" prefWidth="108.0" text="50"/>
                 <Button mnemonicParsing="false" onMouseClicked="#goGarbageTruck" text="Go" />
               </children>
             </HBox>

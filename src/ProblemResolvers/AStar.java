@@ -24,10 +24,28 @@ public class AStar {
 
     List<Node> nodes = new ArrayList<>();
 
+    public AStar() {}
+
     public AStar(Node start, Node goal) {
         startNode = start;
         goalNode = goal;
 
+    }
+
+    public Node getStartNode() {
+        return startNode;
+    }
+
+    public void setStartNode(Node startNode) {
+        this.startNode = startNode;
+    }
+
+    public Node getGoalNode() {
+        return goalNode;
+    }
+
+    public void setGoalNode(Node goalNode) {
+        this.goalNode = goalNode;
     }
 
     public void resolveNeighboursForNode(PrologEngineResolver prologEngineResolver, Node node) throws Exception {
@@ -43,7 +61,6 @@ public class AStar {
                         + potentialNeighbour.getPosition().getYPos()
                         + ")).")) {
                     node.addNeighbourNode(potentialNeighbour);
-                    System.out.println("found neighbour");
                 }
             }
         }
@@ -100,7 +117,6 @@ public class AStar {
         //    }
         //}
 
-
     public class DefaultHashMap<K,V> extends HashMap<K,V> {
         protected V defaultValue;
         public DefaultHashMap(V defaultValue) {
@@ -153,6 +169,8 @@ public class AStar {
             }
 
         }
+
+
 
         return null;
 
